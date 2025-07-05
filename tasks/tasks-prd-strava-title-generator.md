@@ -33,13 +33,13 @@
   - [x] 1.6 Set up Bootstrap for styling.
   - [x] 1.7 Create an `.env.example` file with placeholders for `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `DATABASE_URL`, `SESSION_SECRET`, `AI_API_KEY`, `AI_API_ENDPOINT`.
 
-- [ ] 2.0 Strava Authentication & User Management
-  - [ ] 2.1 Write the `schema.sql` to define the `users` and `processed_activities` tables.
-  - [ ] 2.2 Implement the PostgreSQL database connection in `src/services/db.js`.
-  - [ ] 2.3 Create the Strava OAuth routes (`/auth/strava`, `/auth/strava/callback`) in `src/routes/authRoutes.js`.
-  - [ ] 2.4 Implement the controller logic to exchange the Strava auth code for an access token.
-  - [ ] 2.5 Implement logic to create or update a user in the database with their tokens.
-  - [ ] 2.6 Set up basic session management to maintain user login state.
+- [x] 2.0 Strava Authentication & User Management
+  - [x] 2.1 Write the `schema.sql` to define the `users` and `processed_activities` tables.
+  - [x] 2.2 Implement the PostgreSQL database connection in `src/services/db.js`.
+  - [x] 2.3 Create the Strava OAuth routes (`/auth/strava`, `/auth/strava/callback`) in `src/routes/authRoutes.js`.
+  - [x] 2.4 Implement the controller logic to exchange the Strava auth code for an access token.
+  - [x] 2.5 Implement logic to create or update a user in the database with their tokens.
+  - [x] 2.6 Set up basic session management to maintain user login state.
 
 - [ ] 3.0 Frontend Development: User Dashboard & Prompt Management
   - [ ] 3.1 Create a route and controller to render the main dashboard page, visible only to logged-in users.
