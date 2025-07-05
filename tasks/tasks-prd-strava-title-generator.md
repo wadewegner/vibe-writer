@@ -59,7 +59,7 @@
   - [x] 4.8 Implement robust error logging to the database for any failures in the process.
 
 - [ ] 5.0 Deployment Preparation & Documentation
-  - [ ] 5.1 Create the `digitalocean.yml` file, defining the frontend web service and the backend worker.
-  - [ ] 5.2 Write the `README.md` with detailed sections for Initial Setup, Local Development (including running the webhook with `ngrok`), and Deployment to DigitalOcean App Platform.
-  - [ ] 5.3 Thoroughly document all required environment variables in the `README.md`.
+  - [x] 5.1 Create the `digitalocean.yml` file, defining the frontend web service and the backend worker.
+  - [x] 5.2 Write the `README.md` with detailed sections for Initial Setup, Local Development (including running the webhook with `ngrok`), and Deployment to DigitalOcean App Platform.
+  - [x] 5.3 Thoroughly document all required environment variables in the `README.md`.
   - [ ] 5.4 Test the complete end-to-end flow locally before the first deployment. 
