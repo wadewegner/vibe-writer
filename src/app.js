@@ -6,6 +6,7 @@ const pgSession = require('connect-pg-simple')(session);
 const db = require('./services/db');
 
 const authRoutes = require('./routes/authRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,9 @@ const port = process.env.PORT || 3000;
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// Body-parser middleware
+app.use(express.urlencoded({ extended: false }));
 
 // Session setup
 app.use(session({
@@ -31,6 +35,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // Mount routers
 app.use('/auth', authRoutes);
+app.use('/dashboard', isAuthenticated, dashboardRoutes);
 
 // Middleware to protect routes
 const isAuthenticated = (req, res, next) => {
@@ -42,11 +47,6 @@ const isAuthenticated = (req, res, next) => {
 
 app.get('/', (req, res) => {
   res.render('login');
-});
-
-// Placeholder for the dashboard
-app.get('/dashboard', isAuthenticated, (req, res) => {
-  res.send('<h1>Dashboard</h1><p>Welcome! You are logged in.</p>');
 });
 
 app.listen(port, () => {

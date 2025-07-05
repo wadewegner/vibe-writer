@@ -41,12 +41,12 @@
   - [x] 2.5 Implement logic to create or update a user in the database with their tokens.
   - [x] 2.6 Set up basic session management to maintain user login state.
 
-- [ ] 3.0 Frontend Development: User Dashboard & Prompt Management
-  - [ ] 3.1 Create a route and controller to render the main dashboard page, visible only to logged-in users.
-  - [ ] 3.2 Design the `dashboard.ejs` view using Tailwind CSS, including a form for the AI prompt and a section for activity history.
-  - [ ] 3.3 Create a secure endpoint (`POST /prompt`) to receive and update the user's AI prompt in the database.
-  - [ ] 3.4 Implement the logic to fetch a user's recently processed activities from the database.
-  - [ ] 3.5 Display the activity history on the dashboard.
+- [x] 3.0 Frontend Development: User Dashboard & Prompt Management
+  - [x] 3.1 Create a route and controller to render the main dashboard page, visible only to logged-in users.
+  - [x] 3.2 Design the `dashboard.ejs` view using Bootstrap, including a form for the AI prompt and a section for activity history.
+  - [x] 3.3 Create a secure endpoint (`POST /prompt`) to receive and update the user's AI prompt in the database.
+  - [x] 3.4 Implement the logic to fetch a user's recently processed activities from the database.
+  - [x] 3.5 Display the activity history on the dashboard.
 
 - [ ] 4.0 Backend Worker: Activity Processing & Title Generation
   - [ ] 4.1 In `worker.js`, set up an Express server to listen for webhook events.

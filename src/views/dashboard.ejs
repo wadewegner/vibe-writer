@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">Strava Title Generator</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/auth/logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h1 class="h2 mb-4">Dashboard</h1>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        Prompt Configuration
+      </div>
+      <div class="card-body">
+        <p class="card-text">Enter a prompt that will be used to generate titles for your new Strava activities. You can include placeholders like <code>{distance}</code>, <code>{moving_time}</code>, etc.</p>
+        <form action="/dashboard/prompt" method="POST">
+          <div class="mb-3">
+            <label for="prompt" class="form-label">Your Prompt</label>
+            <textarea class="form-control" id="prompt" name="prompt" rows="3"><%= locals.user && user.prompt ? user.prompt : 'A {distance} {type} in {location}.' %></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Prompt</button>
+        </form>
+      </div>
+    </div>
+
+    <h2 class="h4 mt-5">Generated Titles</h2>
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Original Title</th>
+            <th scope="col">Generated Title</th>
+            <th scope="col">Activity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (locals.activities && activities.length > 0) { %>
+            <% activities.forEach(activity => { %>
+              <tr>
+                <td><%= new Date(activity.processed_at).toLocaleDateString() %></td>
+                <td><%= activity.original_title %></td>
+                <td><%= activity.generated_title %></td>
+                <td><a href="https://www.strava.com/activities/<%= activity.activity_id %>" target="_blank">View on Strava</a></td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="text-center">No activities processed yet. New activities will appear here automatically.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+       <div class="card-header">
+        Analytics
+      </div>
+      <div class="card-body">
+        <p class="card-text">Analytics about title generation will be displayed here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %> 

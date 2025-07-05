@@ -67,4 +67,14 @@ router.get('/strava', stravaController.redirectToStrava);
 // Handle callback from Strava
 router.get('/strava/callback', stravaController.handleCallback);
 
+// Log user out
+router.get('/logout', (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+});
+
 module.exports = router; 
