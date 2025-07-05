@@ -62,7 +62,7 @@ This document outlines the requirements for the "Strava Title Generator," a web 
 
 *   **Frontend:**
     *   **Framework:** Node.js with Express and EJS for server-side rendering.
-    *   **Styling:** Tailwind CSS will be used to create a modern, responsive, and "slick" user interface.
+    *   **Styling:** Bootstrap will be used to create a modern, responsive, and "slick" user interface. It will be included via CDN.
 *   **Backend:**
     *   **Framework:** A Node.js worker process.
     *   **Database:** DigitalOcean Managed PostgreSQL.
