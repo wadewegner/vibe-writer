@@ -48,15 +48,15 @@
   - [x] 3.4 Implement the logic to fetch a user's recently processed activities from the database.
   - [x] 3.5 Display the activity history on the dashboard.
 
-- [ ] 4.0 Backend Worker: Activity Processing & Title Generation
-  - [ ] 4.1 In `worker.js`, set up an Express server to listen for webhook events.
-  - [ ] 4.2 Implement the webhook subscription validation endpoint (`GET /webhook`) to handle Strava's `hub.challenge`.
-  - [ ] 4.3 Implement the event receiver endpoint (`POST /webhook`) to accept new activity data.
-  - [ ] 4.4 In the handler, check the `processed_activities` table to ensure the activity has not been processed.
-  - [ ] 4.5 If the activity is new, fetch the user's prompt and call the AI service via `aiGenerator.js`.
-  - [ ] 4.6 Call the Strava API via `stravaApi.js` to update the activity's title with the generated text.
-  - [ ] 4.7 Insert the `activity_id` into the `processed_activities` table to prevent duplicates.
-  - [ ] 4.8 Implement robust error logging to the database for any failures in the process.
+- [x] 4.0 Backend Worker: Activity Processing & Title Generation
+  - [x] 4.1 In `worker.js`, set up an Express server to listen for webhook events.
+  - [x] 4.2 Implement the webhook subscription validation endpoint (`GET /webhook`) to handle Strava's `hub.challenge`.
+  - [x] 4.3 Implement the event receiver endpoint (`POST /webhook`) to accept new activity data.
+  - [x] 4.4 In the handler, check the `processed_activities` table to ensure the activity has not been processed.
+  - [x] 4.5 If the activity is new, fetch the user's prompt and call the AI service via `aiGenerator.js`.
+  - [x] 4.6 Call the Strava API via `stravaApi.js` to update the activity's title with the generated text.
+  - [x] 4.7 Insert the `activity_id` into the `processed_activities` table to prevent duplicates.
+  - [x] 4.8 Implement robust error logging to the database for any failures in the process.
 
 - [ ] 5.0 Deployment Preparation & Documentation
   - [ ] 5.1 Create the `digitalocean.yml` file, defining the frontend web service and the backend worker.

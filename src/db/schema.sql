@@ -31,4 +31,13 @@ WITH (OIDS=FALSE);
 
 ALTER TABLE "sessions" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
-CREATE INDEX "IDX_session_expire" ON "sessions" ("expire"); 
+CREATE INDEX "IDX_session_expire" ON "sessions" ("expire");
+
+-- Error logs table
+CREATE TABLE logs (
+  id SERIAL PRIMARY KEY,
+  level VARCHAR(50) NOT NULL, -- e.g., 'error', 'info', 'warn'
+  message TEXT NOT NULL,
+  context JSONB, -- To store relevant data like user_id, activity_id, etc.
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+); 
