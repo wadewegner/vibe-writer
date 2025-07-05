@@ -7,6 +7,7 @@ const db = require('./services/db');
 
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const webhookRoutes = require('./routes/webhookRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs');
 
 // Body-parser middleware
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Session setup
 app.use(session({
@@ -44,6 +46,7 @@ const isAuthenticated = (req, res, next) => {
 // Mount routers
 app.use('/auth', authRoutes);
 app.use('/dashboard', isAuthenticated, dashboardRoutes);
+app.use('/webhook', webhookRoutes);
 
 app.get('/', (req, res) => {
   res.render('login');
