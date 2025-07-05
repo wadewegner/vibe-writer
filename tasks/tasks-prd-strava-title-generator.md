@@ -30,7 +30,7 @@
   - [x] 1.3 Create the project directory structure (`src`, `src/routes`, `src/services`, `src/views`, `src/db`, `public`).
   - [x] 1.4 Run `npm init -y` and install core dependencies: `express`, `ejs`, `dotenv`, `pg`.
   - [x] 1.5 Install development dependencies: `nodemon`.
-  - [ ] 1.6 Set up Bootstrap for styling.
+  - [x] 1.6 Set up Bootstrap for styling.
   - [x] 1.7 Create an `.env.example` file with placeholders for `STRAVA_CLIENT_ID`, `STRAVA_CLIENT_SECRET`, `DATABASE_URL`, `SESSION_SECRET`, `AI_API_KEY`, `AI_API_ENDPOINT`.
 
 - [ ] 2.0 Strava Authentication & User Management

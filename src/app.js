@@ -1,11 +1,19 @@
 const express = require('express');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// View engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Serve static files
+app.use(express.static(path.join(__dirname, '../public')));
+
 app.get('/', (req, res) => {
-  res.send('<h1>Strava Title Generator</h1><p>Web service is running!</p>');
+  res.render('login');
 });
 
 app.listen(port, () => {
