@@ -67,6 +67,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env.prod
 
 # parcel-bundler cache (`.cache`)
 .cache

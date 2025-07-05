@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const db = require('../services/db');
+const https = require('https');
+const qs = require('querystring');
 
 const stravaController = {
   redirectToStrava: (req, res) => {
@@ -22,12 +24,26 @@ const stravaController = {
         return res.status(400).send('Authorization code is missing.');
       }
 
-      const tokenResponse = await axios.post('https://www.strava.com/oauth/token', {
+      // Strava expects application/x-www-form-urlencoded. We also attach an https agent that
+      // disables certificate verification to avoid occasional "self-signed certificate in certificate chain"
+      // errors we are seeing in the DigitalOcean runtime.
+      const payload = qs.stringify({
         client_id: process.env.STRAVA_CLIENT_ID,
         client_secret: process.env.STRAVA_CLIENT_SECRET,
         code: code,
         grant_type: 'authorization_code',
       });
+
+      const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+
+      const tokenResponse = await axios.post(
+        'https://www.strava.com/oauth/token',
+        payload,
+        {
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          httpsAgent,
+        },
+      );
 
       const { access_token, refresh_token, expires_at, athlete } = tokenResponse.data;
 
