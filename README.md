@@ -38,11 +38,11 @@ Follow these steps to set up the project for local development.
     -   Create a new database for this project.
     -   Connect to your database and run the schema setup script to create the necessary tables:
         ```sql
-        -- Execute the contents of `database/schema.sql`
+        -- Execute the contents of `src/db/schema.sql`
         ```
         You can use a tool like `psql` to run the script:
         ```bash
-        psql -d your_database_name -a -f database/schema.sql
+        psql -d your_database_name -a -f src/db/schema.sql
         ```
 
 4.  **Create a `.env` file:**

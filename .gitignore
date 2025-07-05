@@ -86,3 +86,5 @@ dist
 
 # Linter cache
 .eslintcache 
+
+STRAVA.md

@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node src/app.js",
     "start:worker": "node src/worker.js",
-    "dev:web": "nodemon src/app.js",
-    "dev:worker": "nodemon src/worker.js",
+    "dev:web": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon src/app.js",
+    "dev:worker": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon src/worker.js",
     "dev": "npm-run-all --parallel dev:web dev:worker",
     "test": "echo \"Tests passed\" && exit 0"
   },

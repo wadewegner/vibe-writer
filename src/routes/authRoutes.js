@@ -5,7 +5,7 @@ const db = require('../services/db');
 
 const stravaController = {
   redirectToStrava: (req, res) => {
-    const scope = 'read,activity:write';
+    const scope = 'read,activity:read_all,activity:write';
     const redirectUri = process.env.STRAVA_REDIRECT_URI;
     const clientId = process.env.STRAVA_CLIENT_ID;
     

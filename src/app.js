@@ -33,10 +33,6 @@ app.use(session({
 // Serve static files
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Mount routers
-app.use('/auth', authRoutes);
-app.use('/dashboard', isAuthenticated, dashboardRoutes);
-
 // Middleware to protect routes
 const isAuthenticated = (req, res, next) => {
   if (req.session.userId) {
@@ -44,6 +40,10 @@ const isAuthenticated = (req, res, next) => {
   }
   res.redirect('/');
 };
+
+// Mount routers
+app.use('/auth', authRoutes);
+app.use('/dashboard', isAuthenticated, dashboardRoutes);
 
 app.get('/', (req, res) => {
   res.render('login');
