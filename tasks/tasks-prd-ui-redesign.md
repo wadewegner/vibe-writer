@@ -31,8 +31,8 @@
   - [x] 4.1 Add the HTML structure for the "Simplicity and Security" section to `login.ejs`.
   - [x] 4.2 Add content that emphasizes the "set it and forget it" nature of the tool and its commitment to data security.
 - [ ] 5.0 Implement Footer
-  - [ ] 5.1 Update `src/views/partials/footer.ejs` to include a link to the project's source code and a brief disclaimer.
-  - [ ] 5.2 Style the footer to be simple and unobtrusive.
+  - [x] 5.1 Update `src/views/partials/footer.ejs` to include a link to the project's source code and a brief disclaimer.
+  - [x] 5.2 Style the footer to be simple and unobtrusive.
 - [ ] 6.0 Final Review and Responsive Polish
   - [ ] 6.1 Add media queries to `public/css/style.css` to ensure the layout is responsive and looks great on mobile, tablet, and desktop devices.
   - [ ] 6.2 Test the page across different browser widths and fix any layout or styling issues.
