@@ -243,6 +243,40 @@ body {
   color: var(--white);
 }
 
+.security-section {
+  padding: 80px 0;
+  background: var(--white);
+}
+
+.security-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.security-text {
+  flex-basis: 60%;
+}
+
+.security-text .section-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+
+.security-text p {
+  color: var(--text-light-color);
+  font-size: 1.1rem;
+}
+
+.security-icon {
+  flex-basis: 30%;
+  text-align: center;
+  font-size: 6rem;
+}
+
 /* Styles for the regeneration confirmation modal */
 #regenerate-modal {
   display: none; /* Hidden by default */

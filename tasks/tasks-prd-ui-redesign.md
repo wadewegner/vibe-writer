@@ -21,15 +21,15 @@
   - [x] 2.1 Modify `src/views/login.ejs` to add the HTML structure for the new hero section.
   - [x] 2.2 Add the catchy headline and concise tagline to the hero section.
   - [x] 2.3 Style the "Login with Strava and have fun" button to be the main call-to-action, ensuring it is visually prominent.
-- [ ] 3.0 Implement Features Section
-  - [ ] 3.1 Add the HTML structure for the features section in `login.ejs`, creating containers for each feature.
-  - [ ] 3.2 Add icons, titles, and brief descriptions for the key features (AI generation, custom prompts, regeneration).
+- [x] 3.0 Implement Features Section
+  - [x] 3.1 Add the HTML structure for the features section in `login.ejs`, creating containers for each feature.
+  - [x] 3.2 Add icons, titles, and brief descriptions for the key features (AI generation, custom prompts, regeneration).
   - [x] 3.3 Implement the animated text transformation effect to show an example title change.
   - [x] 3.4 Add a styled placeholder image for the dashboard mockup.
   - [x] 3.5 Use Flexbox or CSS Grid to create a clean, modern layout for the features.
-- [ ] 4.0 Implement Simplicity and Security Section
-  - [ ] 4.1 Add the HTML structure for the "Simplicity and Security" section to `login.ejs`.
-  - [ ] 4.2 Add content that emphasizes the "set it and forget it" nature of the tool and its commitment to data security.
+- [x] 4.0 Implement Simplicity and Security Section
+  - [x] 4.1 Add the HTML structure for the "Simplicity and Security" section to `login.ejs`.
+  - [x] 4.2 Add content that emphasizes the "set it and forget it" nature of the tool and its commitment to data security.
 - [ ] 5.0 Implement Footer
   - [ ] 5.1 Update `src/views/partials/footer.ejs` to include a link to the project's source code and a brief disclaimer.
   - [ ] 5.2 Style the footer to be simple and unobtrusive.
