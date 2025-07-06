@@ -27,13 +27,13 @@
   - [x] 2.1 In `src/views/dashboard.ejs`, add a "regenerate" icon/button next to each activity title. Assign a unique data attribute for the activity ID (e.g., `data-activity-id="<%= activity.id %>"`).
   - [x] 2.2 In `src/views/dashboard.ejs`, add the HTML structure for a hidden confirmation modal. The modal should include placeholders for the old and new titles, and "Accept" / "Cancel" buttons.
   - [x] 2.3 In `public/css/style.css`, add CSS to style the modal (e.g., center it, add a backdrop, style buttons).
-- [ ] 3.0 Frontend: Implement client-side logic for regeneration.
-  - [ ] 3.1 Create a new file: `public/js/dashboard.js`.
-  - [ ] 3.2 In `public/js/dashboard.js`, add an event listener for clicks on the "regenerate" buttons.
-  - [ ] 3.3 When a button is clicked, get the activity ID from the `data-activity-id` attribute.
-  - [ ] 3.4 Make a `POST` request to the `/api/activities/:id/regenerate-title` endpoint.
-  - [ ] 3.5 On success, populate the confirmation modal with the current and new titles and display it.
-  - [ ] 3.6 Implement the "Cancel" button logic to simply hide the modal.
+- [x] 3.0 Frontend: Implement client-side logic for regeneration.
+  - [x] 3.1 Create a new file: `public/js/dashboard.js`.
+  - [x] 3.2 In `public/js/dashboard.js`, add an event listener for clicks on the "regenerate" buttons.
+  - [x] 3.3 When a button is clicked, get the activity ID from the `data-activity-id` attribute.
+  - [x] 3.4 Make a `POST` request to the `/api/activities/:id/regenerate-title` endpoint.
+  - [x] 3.5 On success, populate the confirmation modal with the current and new titles and display it.
+  - [x] 3.6 Implement the "Cancel" button logic to simply hide the modal.
 - [ ] 4.0 Backend: Create an API endpoint to update the activity title.
   - [ ] 4.1 In `src/routes/activityRoutes.js`, define a new PUT route, e.g., `/api/activities/:id/title`.
   - [ ] 4.2 The route handler should take the new title from the request body.
