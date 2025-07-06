@@ -16,17 +16,17 @@
 
 ## Tasks
 
-- [ ] 1.0 Backend: Create an API endpoint to generate a title suggestion.
+- [x] 1.0 Backend: Create an API endpoint to generate a title suggestion.
   - [x] 1.1 Create a new file: `src/routes/activityRoutes.js`.
   - [x] 1.2 In `activityRoutes.js`, define a new POST route, e.g., `/api/activities/:id/regenerate-title`.
   - [x] 1.3 The route handler should retrieve the activity data from the database using its ID.
   - [x] 1.4 Call the `aiGenerator.js` service with the activity data to generate a new title.
   - [x] 1.5 Return the new title suggestion as a JSON response.
   - [x] 1.6 In `app.js`, import and mount the new `activityRoutes.js` router.
-- [ ] 2.0 Frontend: Add "regenerate" button and confirmation modal to the UI.
-  - [ ] 2.1 In `src/views/dashboard.ejs`, add a "regenerate" icon/button next to each activity title. Assign a unique data attribute for the activity ID (e.g., `data-activity-id="<%= activity.id %>"`).
-  - [ ] 2.2 In `src/views/dashboard.ejs`, add the HTML structure for a hidden confirmation modal. The modal should include placeholders for the old and new titles, and "Accept" / "Cancel" buttons.
-  - [ ] 2.3 In `public/css/style.css`, add CSS to style the modal (e.g., center it, add a backdrop, style buttons).
+- [x] 2.0 Frontend: Add "regenerate" button and confirmation modal to the UI.
+  - [x] 2.1 In `src/views/dashboard.ejs`, add a "regenerate" icon/button next to each activity title. Assign a unique data attribute for the activity ID (e.g., `data-activity-id="<%= activity.id %>"`).
+  - [x] 2.2 In `src/views/dashboard.ejs`, add the HTML structure for a hidden confirmation modal. The modal should include placeholders for the old and new titles, and "Accept" / "Cancel" buttons.
+  - [x] 2.3 In `public/css/style.css`, add CSS to style the modal (e.g., center it, add a backdrop, style buttons).
 - [ ] 3.0 Frontend: Implement client-side logic for regeneration.
   - [ ] 3.1 Create a new file: `public/js/dashboard.js`.
   - [ ] 3.2 In `public/js/dashboard.js`, add an event listener for clicks on the "regenerate" buttons.

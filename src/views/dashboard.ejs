@@ -53,7 +53,12 @@
               <tr>
                 <td><%= new Date(activity.processed_at).toLocaleDateString() %></td>
                 <td><%= activity.original_title %></td>
-                <td><%= activity.generated_title %></td>
+                <td>
+                  <span id="activity-title-<%= activity.id %>"><%= activity.generated_title %></span>
+                  <button class="btn btn-sm btn-outline-secondary regenerate-btn" data-activity-id="<%= activity.id %>" title="Regenerate Title">
+                    &#x21bb; <!-- Unicode for clockwise open circle arrow -->
+                  </button>
+                </td>
                 <td><a href="https://www.strava.com/activities/<%= activity.activity_id %>" target="_blank">View on Strava</a></td>
               </tr>
             <% }) %>
@@ -73,6 +78,27 @@
       </div>
       <div class="card-body">
         <p class="card-text">Analytics about title generation will be displayed here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Regeneration Confirmation Modal -->
+<div class="modal" id="regenerate-modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm New Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>A new title has been generated for your activity.</p>
+        <p><strong>Original Title:</strong> <span id="original-title-placeholder"></span></p>
+        <p><strong>New Title:</strong> <span id="new-title-placeholder"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel-regenerate">Cancel</button>
+        <button type="button" class="btn btn-primary" id="accept-regenerate">Accept New Title</button>
       </div>
     </div>
   </div>

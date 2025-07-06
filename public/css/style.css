@@ -1,1 +1,15 @@
-/* Styles will be added here */ 
+/* Styles will be added here */
+
+/* Styles for the regeneration confirmation modal */
+#regenerate-modal {
+  display: none; /* Hidden by default */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+}
+
+#regenerate-modal.show {
+  display: block;
+}
+
+.regenerate-btn {
+  margin-left: 8px;
+} 
