@@ -8,6 +8,7 @@ const db = require('./services/db');
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
+const activityRoutes = require('./routes/activityRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -47,6 +48,7 @@ const isAuthenticated = (req, res, next) => {
 app.use('/auth', authRoutes);
 app.use('/dashboard', isAuthenticated, dashboardRoutes);
 app.use('/webhook', webhookRoutes);
+app.use('/api/activities', activityRoutes);
 
 app.get('/', (req, res) => {
   res.render('login');
