@@ -58,14 +58,14 @@ const webhookController = {
         logger.info(`Processing new activity ${object_id} for user ${userId}.`, context);
 
         // Fetch activity details from Strava
-        const activityDetails = await stravaApi.getActivityById(user.access_token, object_id);
+        const activityDetails = await stravaApi.getActivityById(user.access_token, object_id, userId);
 
         // Generate a new title using the AI service
         const generatedTitle = await aiGenerator.generateTitle(user.prompt, activityDetails);
         logger.info(`Generated title for activity ${object_id}: "${generatedTitle}"`, context);
 
         // 6. Update the activity on Strava with the new title
-        await stravaApi.updateActivity(user.access_token, object_id, generatedTitle);
+        await stravaApi.updateActivity(user.access_token, object_id, generatedTitle, userId);
 
         // 7. Log a record in processed_activities to prevent duplicates
         const logQuery = `

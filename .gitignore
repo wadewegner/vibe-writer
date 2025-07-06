@@ -89,3 +89,5 @@ dist
 .eslintcache 
 
 STRAVA.md
+.cursor/
+tasks/
