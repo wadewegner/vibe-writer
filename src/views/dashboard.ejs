@@ -25,7 +25,10 @@
         Prompt Configuration
       </div>
       <div class="card-body">
-        <p class="card-text">Enter a prompt that will be used to generate titles for your new Strava activities. You can include placeholders like <code>{distance}</code>, <code>{moving_time}</code>, etc.</p>
+        <p class="card-text">
+          You can include the following placeholders in your prompt:
+          <code>{distance_km}</code>, <code>{distance_miles}</code>, <code>{moving_time_minutes}</code>, <code>{moving_time_hours}</code>, <code>{elevation_gain_meters}</code>, <code>{elevation_gain_feet}</code>, <code>{type}</code>.
+        </p>
         <form action="/dashboard/prompt" method="POST">
           <div class="mb-3">
             <label for="prompt" class="form-label">Your Prompt</label>
