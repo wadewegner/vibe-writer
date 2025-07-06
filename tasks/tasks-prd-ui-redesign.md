@@ -13,14 +13,14 @@
 
 ## Tasks
 
-- [ ] 1.0 Setup and Styling Foundation
+- [x] 1.0 Setup and Styling Foundation
   - [x] 1.1 Clear out existing styles in `public/css/style.css` that are specific to the old login page design.
   - [x] 1.2 Define a new color palette (modern, playful) and typography settings (sans-serif font) as CSS variables.
   - [x] 1.3 Add global styles for the body, including background color and font settings.
-- [ ] 2.0 Implement Hero Section
-  - [ ] 2.1 Modify `src/views/login.ejs` to add the HTML structure for the new hero section.
-  - [ ] 2.2 Add the catchy headline and concise tagline to the hero section.
-  - [ ] 2.3 Style the "Login with Strava and have fun" button to be the main call-to-action, ensuring it is visually prominent.
+- [x] 2.0 Implement Hero Section
+  - [x] 2.1 Modify `src/views/login.ejs` to add the HTML structure for the new hero section.
+  - [x] 2.2 Add the catchy headline and concise tagline to the hero section.
+  - [x] 2.3 Style the "Login with Strava and have fun" button to be the main call-to-action, ensuring it is visually prominent.
 - [ ] 3.0 Implement Features Section
   - [ ] 3.1 Add the HTML structure for the features section in `login.ejs`, creating containers for each feature.
   - [ ] 3.2 Add icons, titles, and brief descriptions for the key features (AI generation, custom prompts, regeneration).
