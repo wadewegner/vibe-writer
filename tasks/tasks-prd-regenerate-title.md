@@ -34,12 +34,12 @@
   - [x] 3.4 Make a `POST` request to the `/api/activities/:id/regenerate-title` endpoint.
   - [x] 3.5 On success, populate the confirmation modal with the current and new titles and display it.
   - [x] 3.6 Implement the "Cancel" button logic to simply hide the modal.
-- [ ] 4.0 Backend: Create an API endpoint to update the activity title.
-  - [ ] 4.1 In `src/routes/activityRoutes.js`, define a new PUT route, e.g., `/api/activities/:id/title`.
-  - [ ] 4.2 The route handler should take the new title from the request body.
-  - [ ] 4.3 Call the `stravaApi.js` service to update the activity title on Strava's platform.
-  - [ ] 4.4 Update the title in the local database.
-  - [ ] 4.5 Return a success response.
+- [x] 4.0 Backend: Create an API endpoint to update the activity title.
+  - [x] 4.1 In `src/routes/activityRoutes.js`, define a new PUT route, e.g., `/api/activities/:id/title`.
+  - [x] 4.2 The route handler should take the new title from the request body.
+  - [x] 4.3 Call the `stravaApi.js` service to update the activity title on Strava's platform.
+  - [x] 4.4 Update the title in the local database.
+  - [x] 4.5 Return a success response.
 - [ ] 5.0 Frontend: Implement client-side logic for accepting a new title.
   - [ ] 5.1 In `public/js/dashboard.js`, add an event listener to the "Accept" button in the modal.
   - [ ] 5.2 When clicked, make a `PUT` request to the `/api/activities/:id/title` endpoint, sending the new title in the request body.

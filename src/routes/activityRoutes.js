@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../services/db');
 const aiGenerator = require('../services/aiGenerator');
+const stravaApi = require('../services/stravaApi');
 
 // Middleware to ensure the user is authenticated
 const isAuthenticated = (req, res, next) => {
@@ -50,6 +51,53 @@ router.post('/:id/regenerate-title', async (req, res) => {
     res.json({ newTitle });
   } catch (error) {
     console.error('Error fetching activity for regeneration:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route PUT /api/activities/:id/title
+ * @description Updates the title for a specific activity.
+ * @access Private
+ */
+router.put('/:id/title', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { newTitle } = req.body;
+    const userId = req.session.userId;
+
+    if (!newTitle || typeof newTitle !== 'string') {
+      return res.status(400).json({ message: 'A valid new title must be provided.' });
+    }
+
+    // 1. Fetch the user's access token and the activity's Strava ID
+    const userQuery = db.query('SELECT strava_access_token FROM users WHERE id = $1', [userId]);
+    const activityQuery = db.query(
+      'SELECT activity_id FROM processed_activities WHERE id = $1 AND user_id = $2',
+      [id, userId]
+    );
+
+    const [userResult, activityResult] = await Promise.all([userQuery, activityQuery]);
+
+    if (userResult.rows.length === 0 || activityResult.rows.length === 0) {
+      return res.status(404).json({ message: 'User or activity not found.' });
+    }
+
+    const accessToken = userResult.rows[0].strava_access_token;
+    const stravaActivityId = activityResult.rows[0].activity_id;
+
+    // 2. Call the Strava API to update the title
+    await stravaApi.updateActivity(accessToken, stravaActivityId, newTitle);
+
+    // 3. Update the title in the local database
+    await db.query(
+      'UPDATE processed_activities SET generated_title = $1 WHERE id = $2 AND user_id = $3',
+      [newTitle, id, userId]
+    );
+
+    res.json({ message: 'Title updated successfully.' });
+  } catch (error) {
+    console.error('Error updating title:', error);
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
