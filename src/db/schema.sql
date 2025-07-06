@@ -15,6 +15,7 @@ CREATE TABLE processed_activities (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id),
   activity_id BIGINT NOT NULL,
+  activity_data JSONB, -- To store the full activity object from Strava
   original_title TEXT,
   generated_title TEXT,
   processed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

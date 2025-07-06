@@ -69,10 +69,10 @@ const webhookController = {
 
         // 7. Log a record in processed_activities to prevent duplicates
         const logQuery = `
-          INSERT INTO processed_activities (user_id, activity_id, original_title, generated_title)
-          VALUES ($1, $2, $3, $4)
+          INSERT INTO processed_activities (user_id, activity_id, original_title, generated_title, activity_data)
+          VALUES ($1, $2, $3, $4, $5)
         `;
-        const logValues = [userId, object_id, activityDetails.name, generatedTitle];
+        const logValues = [userId, object_id, activityDetails.name, generatedTitle, activityDetails];
         await db.query(logQuery, logValues);
 
         logger.info(`Successfully processed activity ${object_id} for user ${userId}.`, context);
