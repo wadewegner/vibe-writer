@@ -3,11 +3,15 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const modalEl = document.getElementById('regenerate-modal');
-  const bsModal = new bootstrap.Modal(modalEl); // Create a Bootstrap Modal instance
   const originalTitleEl = document.getElementById('original-title-placeholder');
   const newTitleEl = document.getElementById('new-title-placeholder');
   const acceptBtn = document.getElementById('accept-regenerate');
   const regenerateAgainBtn = document.getElementById('regenerate-again');
+  const cancelBtn = document.getElementById('cancel-regenerate');
+  const closeBtn = document.querySelector('.modal-close-btn');
+
+  const showModal = () => modalEl.classList.add('show');
+  const hideModal = () => modalEl.classList.remove('show');
 
   /**
    * Handles the asynchronous process of fetching a new title.
@@ -15,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const handleRegeneration = async (activityId) => {
     // Set loading state in the modal
-    newTitleEl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating...';
+    newTitleEl.innerHTML = '<span>Generating...</span>'; // Simple text-based loading state
     acceptBtn.disabled = true;
     regenerateAgainBtn.disabled = true;
 
@@ -48,14 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.regenerate-btn').forEach(button => {
     button.addEventListener('click', (event) => {
       const activityId = event.currentTarget.dataset.activityId;
-      const originalTitle = document.getElementById(`activity-title-${activityId}`).textContent;
+      // In the new layout, the original title is in a sibling td
+      const originalTitle = event.currentTarget.closest('tr').querySelector('td:nth-child(3)').textContent;
 
       // Store data on the modal for other handlers to use
       modalEl.dataset.activityId = activityId;
 
       // Populate and show the modal, then trigger the regeneration
       originalTitleEl.textContent = originalTitle;
-      bsModal.show(); // Use Bootstrap's API to show the modal
+      showModal();
       handleRegeneration(activityId);
     });
   });
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (titleSpan) {
         titleSpan.textContent = newTitle;
       }
-      bsModal.hide(); // Use Bootstrap's API to hide the modal
+      hideModal();
 
     } catch (error) {
       console.error('Error updating title:', error);
@@ -105,6 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // The 'cancel' and 'close' buttons are now handled by Bootstrap's `data-bs-dismiss="modal"`
-  // because we are using the official Bootstrap JS API.
+  // Add event listeners for closing the modal
+  cancelBtn.addEventListener('click', hideModal);
+  closeBtn.addEventListener('click', hideModal);
+
+  // Also close modal if user clicks on the overlay
+  modalEl.addEventListener('click', (event) => {
+    if (event.target === modalEl) {
+      hideModal();
+    }
+  });
 }); 

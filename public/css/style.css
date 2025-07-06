@@ -64,20 +64,6 @@ body {
   background-color: #2563EB; /* A slightly darker blue for hover */
 }
 
-/* Styles for the regeneration confirmation modal */
-#regenerate-modal {
-  display: none; /* Hidden by default */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
-}
-
-#regenerate-modal.show {
-  display: block;
-}
-
-.regenerate-btn {
-  margin-left: 8px;
-}
-
 .visual-demo-section {
   padding: 60px 0;
   background-color: var(--background-color);
@@ -342,18 +328,4 @@ body {
     gap: 0.75rem;
     padding: 1rem;
   }
-}
-
-/* Styles for the regeneration confirmation modal */
-#regenerate-modal {
-  display: none; /* Hidden by default */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
-}
-
-#regenerate-modal.show {
-  display: block;
-}
-
-.regenerate-btn {
-  margin-left: 8px;
 } 
