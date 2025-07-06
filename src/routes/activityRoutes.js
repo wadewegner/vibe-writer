@@ -8,7 +8,7 @@ const stravaApi = require('../services/stravaApi');
 
 // Middleware to ensure the user is authenticated
 const isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (req.session.userId) {
     return next();
   }
   res.status(401).json({ error: 'User not authenticated' });
