@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const newTitleEl = document.getElementById('new-title-placeholder');
   const cancelBtn = document.getElementById('cancel-regenerate');
   const closeBtn = modal.querySelector('.btn-close');
+  const acceptBtn = document.getElementById('accept-regenerate');
 
   const hideModal = () => {
     modal.classList.remove('show');
@@ -44,6 +45,43 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('An error occurred while regenerating the title. Please try again.');
       }
     });
+  });
+
+  acceptBtn.addEventListener('click', async () => {
+    const activityId = modal.dataset.activityId;
+    const newTitle = modal.dataset.newTitle;
+
+    if (!activityId || !newTitle) {
+      console.error('Missing activityId or newTitle on modal');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/activities/${activityId}/title`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newTitle }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update title');
+      }
+
+      // Update the title in the UI
+      const titleSpan = document.getElementById(`activity-title-${activityId}`);
+      if (titleSpan) {
+        titleSpan.textContent = newTitle;
+      }
+      hideModal();
+      console.log('Title updated successfully.');
+
+    } catch (error) {
+      console.error('Error updating title:', error);
+      alert('An error occurred while updating the title. Please try again.');
+    }
   });
 
   cancelBtn.addEventListener('click', hideModal);

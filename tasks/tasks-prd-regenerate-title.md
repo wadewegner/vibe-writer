@@ -40,9 +40,9 @@
   - [x] 4.3 Call the `stravaApi.js` service to update the activity title on Strava's platform.
   - [x] 4.4 Update the title in the local database.
   - [x] 4.5 Return a success response.
-- [ ] 5.0 Frontend: Implement client-side logic for accepting a new title.
-  - [ ] 5.1 In `public/js/dashboard.js`, add an event listener to the "Accept" button in the modal.
-  - [ ] 5.2 When clicked, make a `PUT` request to the `/api/activities/:id/title` endpoint, sending the new title in the request body.
-  - [ ] 5.3 On success, update the activity title in the dashboard UI with the new title.
-  - [ ] 5.4 Hide the confirmation modal.
-  - [ ] 5.5 In `src/views/dashboard.ejs`, add a `<script>` tag to include `public/js/dashboard.js`. 
+- [x] 5.0 Frontend: Implement client-side logic for accepting a new title.
+  - [x] 5.1 In `public/js/dashboard.js`, add an event listener to the "Accept" button in the modal.
+  - [x] 5.2 When clicked, make a `PUT` request to the `/api/activities/:id/title` endpoint, sending the new title in the request body.
+  - [x] 5.3 On success, update the activity title in the dashboard UI with the new title.
+  - [x] 5.4 Hide the confirmation modal.
+  - [x] 5.5 In `src/views/dashboard.ejs`, add a `<script>` tag to include `public/js/dashboard.js`. 
