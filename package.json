@@ -4,10 +4,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "start:worker": "node src/worker.js",
-    "dev:web": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon src/app.js",
-    "dev:worker": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon src/worker.js",
-    "dev": "npm-run-all --parallel dev:web dev:worker",
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon src/app.js",
     "test": "echo \"Tests passed\" && exit 0"
   },
   "keywords": [],

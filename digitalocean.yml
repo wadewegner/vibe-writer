@@ -27,24 +27,4 @@ services:
         type: SECRET
       - key: STRAVA_REDIRECT_URI
         scope: RUN_AND_BUILD_TIME
-        type: SECRET
-
-workers:
-  - name: worker
-    instance_count: 1
-    instance_size_slug: basic-xxs
-    build_command: npm install
-    run_command: npm run start:worker
-    envs:
-      - key: DATABASE_URL
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: AI_API_KEY
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: AI_MODEL_NAME
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: VERIFY_TOKEN
-        scope: RUN_AND_BUILD_TIME
         type: SECRET 
