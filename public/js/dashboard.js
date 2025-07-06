@@ -2,63 +2,76 @@
 // including the logic for regenerating and updating activity titles. 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const regenerateButtons = document.querySelectorAll('.regenerate-btn');
-  const modal = document.getElementById('regenerate-modal');
+  const modalEl = document.getElementById('regenerate-modal');
+  const bsModal = new bootstrap.Modal(modalEl); // Create a Bootstrap Modal instance
   const originalTitleEl = document.getElementById('original-title-placeholder');
   const newTitleEl = document.getElementById('new-title-placeholder');
-  const cancelBtn = document.getElementById('cancel-regenerate');
-  const closeBtn = modal.querySelector('.btn-close');
   const acceptBtn = document.getElementById('accept-regenerate');
+  const regenerateAgainBtn = document.getElementById('regenerate-again');
 
-  const hideModal = () => {
-    modal.classList.remove('show');
+  /**
+   * Handles the asynchronous process of fetching a new title.
+   * @param {string} activityId - The ID of the activity to regenerate.
+   */
+  const handleRegeneration = async (activityId) => {
+    // Set loading state in the modal
+    newTitleEl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating...';
+    acceptBtn.disabled = true;
+    regenerateAgainBtn.disabled = true;
+
+    try {
+      const response = await fetch(`/api/activities/${activityId}/regenerate-title`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Server responded with an error');
+      }
+
+      const data = await response.json();
+
+      // Update modal with the newly generated title
+      newTitleEl.textContent = data.newTitle;
+      modalEl.dataset.newTitle = data.newTitle;
+      acceptBtn.disabled = false; // Re-enable buttons
+      regenerateAgainBtn.disabled = false;
+
+    } catch (error) {
+      console.error('Error during title regeneration:', error);
+      newTitleEl.textContent = 'Error: Could not generate a new title.';
+      // Allow user to try again on failure
+      regenerateAgainBtn.disabled = false;
+    }
   };
 
-  regenerateButtons.forEach(button => {
+  // Add event listeners to all regenerate buttons on the main page
+  document.querySelectorAll('.regenerate-btn').forEach(button => {
     button.addEventListener('click', (event) => {
       const activityId = event.currentTarget.dataset.activityId;
       const originalTitle = document.getElementById(`activity-title-${activityId}`).textContent;
 
-      // Store data on the modal for the 'accept' handler
-      modal.dataset.activityId = activityId;
-      modal.dataset.newTitle = ''; // Clear previous new title
+      // Store data on the modal for other handlers to use
+      modalEl.dataset.activityId = activityId;
 
-      // Populate and show the modal immediately for better UX
+      // Populate and show the modal, then trigger the regeneration
       originalTitleEl.textContent = originalTitle;
-      newTitleEl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating...';
-      acceptBtn.disabled = true;
-      modal.classList.add('show');
-
-      // Make the API call asynchronously
-      (async () => {
-        try {
-          const response = await fetch(`/api/activities/${activityId}/regenerate-title`, {
-            method: 'POST',
-          });
-
-          if (!response.ok) {
-            throw new Error('Server responded with an error');
-          }
-
-          const data = await response.json();
-
-          // Update modal with the new title
-          newTitleEl.textContent = data.newTitle;
-          modal.dataset.newTitle = data.newTitle;
-          acceptBtn.disabled = false; // Re-enable accept button
-
-        } catch (error) {
-          console.error('Error during title regeneration:', error);
-          newTitleEl.textContent = 'Error: Could not generate a new title.';
-          // Keep accept button disabled on error
-        }
-      })();
+      bsModal.show(); // Use Bootstrap's API to show the modal
+      handleRegeneration(activityId);
     });
   });
 
+  // Add event listener to the "Regenerate Again" button inside the modal
+  regenerateAgainBtn.addEventListener('click', () => {
+    const activityId = modalEl.dataset.activityId;
+    if (activityId) {
+      handleRegeneration(activityId);
+    }
+  });
+
+  // Add event listener to the "Accept" button
   acceptBtn.addEventListener('click', async () => {
-    const activityId = modal.dataset.activityId;
-    const newTitle = modal.dataset.newTitle;
+    const activityId = modalEl.dataset.activityId;
+    const newTitle = modalEl.dataset.newTitle;
 
     if (!activityId || !newTitle) {
       console.error('Missing activityId or newTitle on modal');
@@ -84,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (titleSpan) {
         titleSpan.textContent = newTitle;
       }
-      hideModal();
-      console.log('Title updated successfully.');
+      bsModal.hide(); // Use Bootstrap's API to hide the modal
 
     } catch (error) {
       console.error('Error updating title:', error);
@@ -93,6 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  cancelBtn.addEventListener('click', hideModal);
-  closeBtn.addEventListener('click', hideModal);
+  // The 'cancel' and 'close' buttons are now handled by Bootstrap's `data-bs-dismiss="modal"`
+  // because we are using the official Bootstrap JS API.
 }); 
