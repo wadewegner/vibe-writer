@@ -328,4 +328,10 @@ body {
     gap: 0.75rem;
     padding: 1rem;
   }
+}
+
+.logo {
+  max-width: 250px;
+  height: auto;
+  margin-bottom: 1.5rem;
 } 
