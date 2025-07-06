@@ -45,8 +45,8 @@ router.post('/:id/regenerate-title', async (req, res) => {
     }
     const user = userResult.rows[0];
     
-    // The activity data from the DB is already in the format the AI service expects
-    const newTitle = await aiGenerator.generateTitle(user.prompt, activity.activity_data);
+    // Pass the entire activity record to the generator
+    const newTitle = await aiGenerator.generateTitle(user.prompt, activity);
 
     res.json({ newTitle });
   } catch (error) {
@@ -71,7 +71,7 @@ router.put('/:id/title', async (req, res) => {
     }
 
     // 1. Fetch the user's access token and the activity's Strava ID
-    const userQuery = db.query('SELECT strava_access_token FROM users WHERE id = $1', [userId]);
+    const userQuery = db.query('SELECT access_token FROM users WHERE id = $1', [userId]);
     const activityQuery = db.query(
       'SELECT activity_id FROM processed_activities WHERE id = $1 AND user_id = $2',
       [id, userId]
@@ -83,7 +83,7 @@ router.put('/:id/title', async (req, res) => {
       return res.status(404).json({ message: 'User or activity not found.' });
     }
 
-    const accessToken = userResult.rows[0].strava_access_token;
+    const accessToken = userResult.rows[0].access_token;
     const stravaActivityId = activityResult.rows[0].activity_id;
 
     // 2. Call the Strava API to update the title

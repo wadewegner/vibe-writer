@@ -15,35 +15,44 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   regenerateButtons.forEach(button => {
-    button.addEventListener('click', async (event) => {
+    button.addEventListener('click', (event) => {
       const activityId = event.currentTarget.dataset.activityId;
-      
-      try {
-        const response = await fetch(`/api/activities/${activityId}/regenerate-title`, {
-          method: 'POST',
-        });
+      const originalTitle = document.getElementById(`activity-title-${activityId}`).textContent;
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to regenerate title');
+      // Store data on the modal for the 'accept' handler
+      modal.dataset.activityId = activityId;
+      modal.dataset.newTitle = ''; // Clear previous new title
+
+      // Populate and show the modal immediately for better UX
+      originalTitleEl.textContent = originalTitle;
+      newTitleEl.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generating...';
+      acceptBtn.disabled = true;
+      modal.classList.add('show');
+
+      // Make the API call asynchronously
+      (async () => {
+        try {
+          const response = await fetch(`/api/activities/${activityId}/regenerate-title`, {
+            method: 'POST',
+          });
+
+          if (!response.ok) {
+            throw new Error('Server responded with an error');
+          }
+
+          const data = await response.json();
+
+          // Update modal with the new title
+          newTitleEl.textContent = data.newTitle;
+          modal.dataset.newTitle = data.newTitle;
+          acceptBtn.disabled = false; // Re-enable accept button
+
+        } catch (error) {
+          console.error('Error during title regeneration:', error);
+          newTitleEl.textContent = 'Error: Could not generate a new title.';
+          // Keep accept button disabled on error
         }
-
-        const data = await response.json();
-        const originalTitle = document.getElementById(`activity-title-${activityId}`).textContent;
-
-        // Store data on the modal for the 'accept' handler to use
-        modal.dataset.activityId = activityId;
-        modal.dataset.newTitle = data.newTitle;
-
-        // Populate and show the modal
-        originalTitleEl.textContent = originalTitle;
-        newTitleEl.textContent = data.newTitle;
-        modal.classList.add('show');
-
-      } catch (error) {
-        console.error('Error during title regeneration:', error);
-        alert('An error occurred while regenerating the title. Please try again.');
-      }
+      })();
     });
   });
 
