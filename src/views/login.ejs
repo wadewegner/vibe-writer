@@ -10,10 +10,66 @@
     </div>
   </section>
 
+  <!-- Visual Demonstration Section -->
+  <section class="visual-demo-section">
+    <div class="container">
+      <div class="visual-demo-box">
+        <span class="demo-text-static">Morning Run</span>
+        <span class="demo-text-arrow">→</span>
+        <span id="animated-title" class="demo-text-animated">Conquered 5k in the city fog.</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Features Section -->
   <section class="features-section">
     <div class="container">
-      <!-- Feature content will be added here -->
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">[ICON]</div>
+          <h3 class="feature-title">Automatic Titles</h3>
+          <p class="feature-description">Let AI generate creative titles for your activities the moment you finish.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">[ICON]</div>
+          <h3 class="feature-title">Custom Prompts</h3>
+          <p class="feature-description">Guide the AI with your own prompts to get the perfect tone and style.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">[ICON]</div>
+          <h3 class="feature-title">Regenerate Instantly</h3>
+          <p class="feature-description">Not happy with a title? Get a new one with a single click.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Preview Section -->
+  <section class="dashboard-preview-section">
+    <div class="container">
+      <h2 class="section-title">See It in Action</h2>
+      <div class="dashboard-mockup">
+        <div class="mockup-header">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="mockup-body">
+          <div class="activity-row">
+            <span>Morning Run</span>
+            <span class="generated-title">"Conquered 5k in the city fog."</span>
+            <button class="mockup-button">Regenerate</button>
+          </div>
+          <div class="activity-row">
+            <span>Afternoon Ride</span>
+            <span class="generated-title">"Golden hour spin through the park."</span>
+            <button class="mockup-button">Regenerate</button>
+          </div>
+          <div class="activity-row">
+            <span>Evening Walk</span>
+            <span class="generated-title">"Winding down with a peaceful stroll."</span>
+            <button class="mockup-button">Regenerate</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -25,5 +81,7 @@
   </section>
 
 </main>
+
+<script src="/js/landing.js"></script>
 
 <%- include('partials/footer') %> 

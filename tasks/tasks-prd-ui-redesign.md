@@ -24,9 +24,9 @@
 - [ ] 3.0 Implement Features Section
   - [ ] 3.1 Add the HTML structure for the features section in `login.ejs`, creating containers for each feature.
   - [ ] 3.2 Add icons, titles, and brief descriptions for the key features (AI generation, custom prompts, regeneration).
-  - [ ] 3.3 Implement the animated text transformation effect to show an example title change.
-  - [ ] 3.4 Add a styled placeholder image for the dashboard mockup.
-  - [ ] 3.5 Use Flexbox or CSS Grid to create a clean, modern layout for the features.
+  - [x] 3.3 Implement the animated text transformation effect to show an example title change.
+  - [x] 3.4 Add a styled placeholder image for the dashboard mockup.
+  - [x] 3.5 Use Flexbox or CSS Grid to create a clean, modern layout for the features.
 - [ ] 4.0 Implement Simplicity and Security Section
   - [ ] 4.1 Add the HTML structure for the "Simplicity and Security" section to `login.ejs`.
   - [ ] 4.2 Add content that emphasizes the "set it and forget it" nature of the tool and its commitment to data security.

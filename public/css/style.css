@@ -78,7 +78,170 @@ body {
   margin-left: 8px;
 }
 
-/* Styles will be added here */
+.visual-demo-section {
+  padding: 60px 0;
+  background-color: var(--background-color);
+}
+
+.visual-demo-box {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  text-align: center;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.demo-text-static {
+  color: var(--text-light-color);
+  text-decoration: line-through;
+}
+
+.demo-text-arrow {
+  color: var(--secondary-color);
+}
+
+.demo-text-animated {
+  color: var(--primary-color);
+  display: inline-block;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+.features-section {
+  padding: 80px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.feature-item {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  color: var(--text-light-color);
+}
+
+.dashboard-preview-section {
+  padding: 80px 0;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: var(--text-color);
+}
+
+.dashboard-mockup {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+}
+
+.mockup-header {
+  background: #E5E7EB;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+
+.mockup-header .dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #D1D5DB;
+  margin-right: 6px;
+}
+
+.mockup-body {
+  padding: 2rem;
+}
+
+.activity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: var(--background-color);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.activity-row:last-child {
+  margin-bottom: 0;
+}
+
+.activity-row .generated-title {
+  color: var(--text-light-color);
+  font-style: italic;
+}
+
+.mockup-button {
+  background: var(--white);
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.mockup-button:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
 
 /* Styles for the regeneration confirmation modal */
 #regenerate-modal {
