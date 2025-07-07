@@ -67,40 +67,53 @@ You need to set up the following environment variables in a `.env` file in the p
 ## Local Development
 
 1.  **Run the application:**
-    To run both the web server and the background worker concurrently in development mode (with auto-reloading), use:
+    To run the web server in development mode (with auto-reloading), use:
     ```bash
     npm run dev
     ```
     -   The web server will be available at `http://localhost:3000`.
-    -   The worker will be running in the background, ready to process webhook events.
 
-2.  **Using `ngrok` for Webhook Testing:**
-    Strava webhooks need a publicly accessible URL to send events. `ngrok` is a great tool to expose your local server to the internet.
+2.  **Managing Strava Webhooks for Local Development:**
+    When running the application locally, you need a way for Strava's servers to send events to your development machine. `ngrok` provides a public URL for this purpose. Because this URL changes every time you restart `ngrok`, you will need to update your Strava webhook subscription accordingly.
 
     -   **Install `ngrok`**: Follow the instructions on the [ngrok website](https://ngrok.com/download).
 
-    -   **Run `ngrok`**:
+    -   **Run `ngrok`**: The web service runs on port 3000.
         ```bash
         ngrok http 3000
         ```
-    -   `ngrok` will provide you with a public URL (e.g., `https://random-string.ngrok.io`).
+        `ngrok` will provide a public URL (e.g., `https://random-string.ngrok.io`). You will use this as your `callback_url` base.
 
-    -   **Update Strava Settings**:
+    -   **Update Strava Application Settings**:
         -   Go to your Strava API Application settings.
-        -   Set the **Authorization Callback Domain** to the `ngrok` domain (e.g., `random-string.ngrok.io`).
-        -   Update the `STRAVA_REDIRECT_URI` in your `.env` file to use the `ngrok` URL:
-            `STRAVA_REDIRECT_URI=https://random-string.ngrok.io/strava/callback`
+        -   Set the **Authorization Callback Domain** to the `ngrok` domain (without `https://`, e.g., `random-string.ngrok.io`).
+        -   Update the `STRAVA_REDIRECT_URI` in your `.env` file to use the full `ngrok` URL:
+            `STRAVA_REDIRECT_URI=https://random-string.ngrok.io/auth/strava/callback`
 
-    -   **Create a Webhook Subscription**:
-        You will need to make a `POST` request to the Strava API to subscribe to activity events. Use a tool like `curl` or Postman.
+    -   **View Your Current Webhook Subscription**:
+        Use this command to check if you have an active subscription and to find its `id`. An empty `[]` response means no subscription exists.
+        ```bash
+        curl -G https://www.strava.com/api/v3/push_subscriptions \
+            -d client_id=YOUR_CLIENT_ID \
+            -d client_secret=YOUR_CLIENT_SECRET
+        ```
+
+    -   **Delete an Existing Subscription**:
+        If you restart `ngrok` and get a new URL, you must delete the old subscription before creating a new one. Replace `<SUBSCRIPTION_ID>` with the `id` from the previous step.
+        ```bash
+        curl -X DELETE "https://www.strava.com/api/v3/push_subscriptions/<SUBSCRIPTION_ID>?client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET"
+        ```
+
+    -   **Create a New Subscription**:
+        Once you have deleted the old subscription (if one existed), create a new one with your current `ngrok` URL. **Important:** Replace `https://your-ngrok-url.io` with your actual `ngrok` forwarding URL.
         ```bash
         curl -X POST https://www.strava.com/api/v3/push_subscriptions \
-        -F client_id=YOUR_CLIENT_ID \
-        -F client_secret=YOUR_CLIENT_SECRET \
-        -F "callback_url=https://your-ngrok-url.io/strava/webhook" \
-        -F "verify_token=YOUR_VERIFY_TOKEN"
+            -F client_id=YOUR_CLIENT_ID \
+            -F client_secret=YOUR_CLIENT_SECRET \
+            -F "callback_url=https://your-ngrok-url.io/webhook" \
+            -F "verify_token=YOUR_VERIFY_TOKEN"
         ```
-        Replace the placeholders with your actual credentials and the `ngrok` URL.
+        A successful creation will return the new subscription details, and you should see a "Webhook subscription validated" message in your running application's console.
 
 ## Deployment
 
