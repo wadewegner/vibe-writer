@@ -1,4 +1,4 @@
-# Strava Title Generator
+# Vibe Writer: Stop Writing Boring Strava Titles
 
 A web application that automatically generates creative and personalized titles for your Strava activities using an AI service.
 
