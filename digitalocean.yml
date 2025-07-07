@@ -1,22 +1,21 @@
 # DigitalOcean App Platform Spec
 # https://docs.digitalocean.com/products/app-platform/reference/app-spec/
-name: strava-title-generator
+name: vibe-writer
 region: nyc
 
 services:
   - name: web
-    instance_count: 1
-    instance_size_slug: basic-xxs
+    github:
+      repo: wadewegner/vibe-writer
+      branch: main
+      deploy_on_push: true
     build_command: npm install
     run_command: npm start
-    http_port: 3000
+    http_port: 8080
     routes:
       - path: /
     envs:
       - key: DATABASE_URL
-        scope: RUN_AND_BUILD_TIME
-        type: SECRET
-      - key: SESSION_SECRET
         scope: RUN_AND_BUILD_TIME
         type: SECRET
       - key: STRAVA_CLIENT_ID
@@ -27,4 +26,27 @@ services:
         type: SECRET
       - key: STRAVA_REDIRECT_URI
         scope: RUN_AND_BUILD_TIME
-        type: SECRET 
+        type: SECRET
+      - key: SESSION_SECRET
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: OPENAI_API_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: LOG_LEVEL
+        value: "info"
+        scope: RUN_AND_BUILD_TIME
+      - key: NODE_ENV
+        value: "production"
+        scope: RUN_AND_BUILD_TIME
+      - key: WEBHOOK_URL
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+    health_check:
+      http_path: /
+
+databases:
+  - name: db
+    engine: PG
+    production: true
+    version: "12"
