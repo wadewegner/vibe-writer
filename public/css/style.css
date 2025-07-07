@@ -176,6 +176,11 @@ main.landing-page {
   color: var(--text-light-color);
 }
 
+.logo {
+  max-width: 250px;
+  height: auto;
+}
+
 .dashboard-preview-section {
   padding: 80px 0;
   text-align: center;
@@ -368,10 +373,4 @@ main.landing-page {
     gap: 0.75rem;
     padding: 1rem;
   }
-}
-
-.logo {
-  max-width: 250px;
-  height: auto;
-  margin-bottom: 1.5rem;
 } 
