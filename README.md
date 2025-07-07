@@ -14,9 +14,10 @@ A web application that automatically generates creative and personalized titles 
 
 -   **Backend**: Node.js, Express.js
 -   **Frontend**: EJS (Embedded JavaScript templates), Bootstrap
--   **Database**: PostgreSQL
+-   **Database**: DigitalOcean PostgreSQL
 -   **Authentication**: Strava OAuth 2.0, Express Sessions
 -   **Deployment**: DigitalOcean App Platform
+-   **AI Inferencing**: DigitalOcean Serverless Inferencing
 
 ## Initial Setup
 
