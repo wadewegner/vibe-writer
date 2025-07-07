@@ -21,6 +21,13 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main.landing-page {
+    flex: 1;
 }
 
 .container {
@@ -31,7 +38,7 @@ body {
 
 .hero-section {
   text-align: center;
-  padding: 100px 0;
+  padding: 100px 0 60px 0;
   background-color: var(--white);
 }
 
@@ -117,6 +124,15 @@ body {
 
 .features-section {
   padding: 80px 0;
+}
+
+.support-content-section {
+    padding: 40px 0;
+}
+
+.support-content-section .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 .features-grid {
