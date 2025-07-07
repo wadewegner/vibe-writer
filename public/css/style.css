@@ -275,21 +275,34 @@ body {
 }
 
 .footer {
-  padding: 2rem 0;
   text-align: center;
+  padding: 2rem 0;
   font-size: 0.9rem;
-  color: var(--text-light-color);
-  border-top: 1px solid var(--border-color);
+  color: #6c757d;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
 }
 
-.footer a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 500;
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.footer a:hover {
-  text-decoration: underline;
+.footer-brand .strava-logo {
+  height: 24px; /* Adjust as needed */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.footer-brand .strava-logo:hover {
+  opacity: 1;
+}
+
+.footer-links {
+  text-align: right;
 }
 
 /* --- Responsive Styles --- */

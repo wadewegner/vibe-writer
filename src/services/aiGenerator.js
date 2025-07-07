@@ -42,7 +42,6 @@ const aiGenerator = {
         moving_time_seconds: rawActivity.moving_time,
         elapsed_time_seconds: rawActivity.elapsed_time,
         elevation_gain_meters: rawActivity.total_elevation_gain,
-        start_location: rawActivity.start_latlng,
         name: rawActivity.name,
       }, null, 2);
 
