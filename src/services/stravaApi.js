@@ -48,11 +48,11 @@ const stravaApi = {
       return await apiCall();
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        logger.warn(`Received 401 Unauthorized for user ${userId}. Refreshing token.`);
-        const { access_token } = await this.refreshAccessToken(userId);
+        logger.info(`Received 401 Unauthorized for user ${userId}. Refreshing token.`);
+        const accessToken = await this.refreshAccessToken(userId);
         // Retry the request with the new token
         logger.info(`Retrying API request for user ${userId} with new token.`);
-        return await apiCall(access_token);
+        return await apiCall(accessToken);
       }
       // For other errors, just re-throw
       throw error;
@@ -78,7 +78,7 @@ const stravaApi = {
           return response.data; // Success
         } catch (error) {
           if (error.response && error.response.status === 404 && i < retries - 1) {
-            logger.warn(`Activity ${activityId} not found, retrying in ${delay / 1000}s... (Attempt ${i + 1}/${retries})`);
+            logger.info(`Activity ${activityId} not found, retrying in ${delay / 1000}s... (Attempt ${i + 1}/${retries})`);
             await new Promise(resolve => setTimeout(resolve, delay));
             delay *= 2; // Double the delay for the next attempt
           } else {

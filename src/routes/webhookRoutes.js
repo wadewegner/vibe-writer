@@ -27,11 +27,11 @@ const webhookController = {
     // Acknowledge the event immediately
     res.status(200).send('EVENT_RECEIVED');
 
-    const { object_type, aspect_type, object_id, owner_id } = req.body;
+    const { object_type, aspect_type, object_id, owner_id, updates } = req.body;
 
     let context = { object_id, owner_id };
 
-    if (object_type === 'activity' && aspect_type === 'create') {
+    if (object_type === 'activity' && (aspect_type === 'create' || (aspect_type === 'update' && !updates.title))) {
       try {
         // 1. Find the user in our database via their Strava ID (owner_id)
         const userResult = await db.query('SELECT * FROM users WHERE strava_id = $1', [owner_id]);
