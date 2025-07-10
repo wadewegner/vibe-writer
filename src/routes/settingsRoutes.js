@@ -23,31 +23,50 @@ const settingsController = {
       }
 
       const user = userResult.rows[0];
+      const userPrompt = user.prompt || 'Make my titles sound epic and heroic.';
 
-      // This is the default system prompt from the PRD.
-      const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
+      // Construct the exact payload for the preview
+      const previewPayload = {
+        model: process.env.AI_MODEL_NAME || 'openai-o3',
+        messages: [
+          { 
+            role: 'system', 
+            content: `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
 
 You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks.
 
-Here is the structure of the activity data you will receive:
+Here is an example of the activity data you will receive:
 {
-  "type": "Ride", // Type of activity (e.g., Run, Ride, Swim)
-  "distance_km": 10.5, // Distance in kilometers
-  "distance_miles": 6.5, // Distance in miles
-  "moving_time_minutes": 30, // Moving time in minutes
-  "elevation_gain_meters": 150, // Elevation gain in meters
-  "elevation_gain_feet": 492 // Elevation gain in feet
+  "type": "Ride",
+  "distance_km": 10.5,
+  "distance_miles": 6.5,
+  "moving_time_minutes": 30,
+  "elevation_gain_meters": 150,
+  "elevation_gain_feet": 492
 }
 
-Generate a title that reflects the user's instructions and the provided data.`;
+Generate a title that reflects the user's instructions and the provided data.`
+          },
+          { 
+            role: 'user', 
+            content: `User's instruction: "${userPrompt}"\n\nActivity Data:\n${JSON.stringify({
+              type: "Ride",
+              distance_km: "12.34",
+              distance_miles: "7.67",
+              moving_time_minutes: 45,
+              elevation_gain_meters: 210,
+              elevation_gain_feet: 689
+            }, null, 2)}` 
+          }
+        ]
+      };
 
-      const userPrompt = user.prompt || 'Make my titles sound epic and heroic.';
-      const fullPromptPreview = `SYSTEM PROMPT:\n------------\n${systemPrompt}\n\nUSER INSTRUCTIONS:\n------------------\n${userPrompt}`;
+      const fullPromptPreview = JSON.stringify(previewPayload, null, 2);
 
       res.render('settings', { 
         user, 
         fullPromptPreview,
-        currentPage: 'settings' // Add current page identifier
+        currentPage: 'settings'
       });
 
     } catch (error) {
