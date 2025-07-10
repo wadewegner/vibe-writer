@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Vibe Writer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<%- include('partials/dashboard-header') %>
+
+<main class="dashboard-container">
+  <h1 class="dashboard-title">Settings</h1>
+
+  <div class="prompt-card">
+    <div class="card-header">
+      <h2>Prompt Configuration</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        Use the text area below to provide instructions for the AI. Describe the tone, style, or specific elements you want it to focus on. There's no need to include activity data placeholders; that will be handled automatically.
+      </p>
+      <form action="/settings/prompt" method="POST" class="prompt-form">
+        <div class="form-group">
+          <label for="prompt" class="prompt-label">Your Instructions</label>
+          <textarea id="prompt" name="prompt" rows="8" class="prompt-textarea"><%= locals.user && user.prompt ? user.prompt : 'Make my titles sound epic and heroic.' %></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Prompt</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="card-header">
+      <h2>Full Prompt Preview</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        This is a read-only preview of the full prompt that will be sent to the AI, combining the system instructions with your custom instructions.
+      </p>
+      <div class="prompt-preview">
+        <pre><code><%= locals.fullPromptPreview %></code></pre>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<%- include('partials/footer') %>
+
+</body>
+</html> 

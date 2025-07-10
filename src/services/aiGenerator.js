@@ -11,41 +11,36 @@ const aiGenerator = {
   generateTitle: async (userPrompt, activity) => {
     try {
       // Use a default prompt if the user has not provided one.
-      const effectivePrompt = userPrompt || 'Make it sound epic and fun!';
+      const effectiveUserPrompt = userPrompt || 'Make it sound epic and fun!';
       
-      // The raw activity data might be nested if coming from our DB
       const rawActivity = activity.activity_data || activity;
 
-      // --- Placeholder Replacement Logic ---
-      const replacements = {
-        '{distance_km}': (rawActivity.distance / 1000).toFixed(2),
-        '{distance_miles}': (rawActivity.distance * 0.000621371).toFixed(2),
-        '{moving_time_minutes}': Math.round(rawActivity.moving_time / 60),
-        '{moving_time_hours}': (rawActivity.moving_time / 3600).toFixed(2),
-        '{elevation_gain_meters}': Math.round(rawActivity.total_elevation_gain),
-        '{elevation_gain_feet}': Math.round(rawActivity.total_elevation_gain * 3.28084),
-        '{type}': rawActivity.type,
+      const activityData = {
+        type: rawActivity.type,
+        distance_km: (rawActivity.distance / 1000).toFixed(2),
+        distance_miles: (rawActivity.distance * 0.000621371).toFixed(2),
+        moving_time_minutes: Math.round(rawActivity.moving_time / 60),
+        elevation_gain_meters: Math.round(rawActivity.total_elevation_gain),
+        elevation_gain_feet: Math.round(rawActivity.total_elevation_gain * 3.28084),
       };
 
-      let finalUserPrompt = effectivePrompt;
-      for (const placeholder in replacements) {
-        finalUserPrompt = finalUserPrompt.replace(new RegExp(placeholder, 'g'), replacements[placeholder]);
-      }
-      // --- End Placeholder Replacement ---
+      const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
 
-      // Construct a detailed prompt for the AI
-      const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity based on their prompt and the activity data. The title should not be enclosed in quotation marks.`;
+You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks.
+
+Here is an example of the activity data you will receive:
+{
+  "type": "Ride",
+  "distance_km": 10.5,
+  "distance_miles": 6.5,
+  "moving_time_minutes": 30,
+  "elevation_gain_meters": 150,
+  "elevation_gain_feet": 492
+}
+
+Generate a title that reflects the user's instructions and the provided data.`;
       
-      const activityData = JSON.stringify({
-        type: rawActivity.type,
-        distance_meters: rawActivity.distance,
-        moving_time_seconds: rawActivity.moving_time,
-        elapsed_time_seconds: rawActivity.elapsed_time,
-        elevation_gain_meters: rawActivity.total_elevation_gain,
-        name: rawActivity.name,
-      }, null, 2);
-
-      const finalPrompt = `User's instruction: "${finalUserPrompt}"\n\nActivity Data:\n${activityData}`;
+      const finalPrompt = `User's instruction: "${effectiveUserPrompt}"\n\nActivity Data:\n${JSON.stringify(activityData, null, 2)}`;
 
       const requestPayload = {
         model: process.env.AI_MODEL_NAME || 'openai-o3',

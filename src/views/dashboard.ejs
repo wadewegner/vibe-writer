@@ -9,37 +9,10 @@
 </head>
 <body>
 
-<header class="dashboard-header">
-  <div class="dashboard-container">
-    <div class="header-brand-container">
-      <img src="/img/vibewriter-logo.png" alt="VibeWriter Logo" class="header-logo">
-      <a class="header-brand" href="/dashboard"><strong>Vibe Writer</strong>: Stop Writing Boring Strava Titles</a>
-    </div>
-    <nav class="header-nav">
-      <a href="/auth/logout" class="nav-link">Log Out</a>
-    </nav>
-  </div>
-</header>
+<%- include('partials/dashboard-header') %>
 
 <main class="dashboard-container">
   <h1 class="dashboard-title">Dashboard</h1>
-
-  <div class="prompt-card">
-    <div class="card-header">
-      <h2>Prompt Configuration</h2>
-    </div>
-    <div class="card-body">
-      <p>
-        You can include the following placeholders in your prompt:
-        <code>{distance_km}</code>, <code>{distance_miles}</code>, <code>{moving_time_minutes}</code>, <code>{moving_time_hours}</code>, <code>{elevation_gain_meters}</code>, <code>{elevation_gain_feet}</code>, <code>{type}</code>.
-      </p>
-      <form action="/dashboard/prompt" method="POST" class="prompt-form">
-        <label for="prompt" class="prompt-label">Your Prompt</label>
-        <textarea id="prompt" name="prompt" rows="4" class="prompt-textarea"><%= locals.user && user.prompt ? user.prompt : 'A {distance} {type} in {location}.' %></textarea>
-        <button type="submit" class="btn btn-primary">Save Prompt</button>
-      </form>
-    </div>
-  </div>
 
   <h2 class="activities-title">Generated Titles</h2>
   <div class="activities-table-container">

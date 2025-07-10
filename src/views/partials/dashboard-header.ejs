@@ -1,0 +1,29 @@
+<header class="dashboard-header">
+  <div class="dashboard-container">
+    <div class="header-content">
+      <div class="header-left">
+        <a href="/dashboard" class="header-brand-container">
+          <img src="/img/vibewriter-logo.png" alt="VibeWriter Logo" class="header-logo">
+          <span class="header-brand"><strong>Vibe Writer</strong>: Stop Writing Boring Strava Titles</span>
+        </a>
+      </div>
+      <div class="header-right">
+        <nav class="header-nav">
+          <% if (locals.currentPage === 'dashboard') { %>
+            <span class="nav-link active">Dashboard</span>
+          <% } else { %>
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+          <% } %>
+          <% if (locals.currentPage === 'settings') { %>
+            <span class="nav-link active">Settings</span>
+          <% } else { %>
+            <a href="/settings" class="nav-link">Settings</a>
+          <% } %>
+        </nav>
+        <div class="header-logout">
+          <a href="/auth/logout" class="nav-link">Log Out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header> 
