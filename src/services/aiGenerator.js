@@ -66,8 +66,12 @@ Generate a title that reflects the user's instructions and the provided data.`;
         ]
       };
 
-      // Use JSON.stringify to ensure the full payload is logged without truncation.
-      logger.info('Sending request to AI service.', { endpoint: 'https://inference.do-ai.run/v1/chat/completions', payload: JSON.stringify(requestPayload, null, 2) });
+      // Observability: log model and count of recent titles only (do not log full prompt)
+      logger.info('Sending request to AI service.', {
+        endpoint: 'https://inference.do-ai.run/v1/chat/completions',
+        model: requestPayload.model,
+        recentTitlesCount: cleanedRecentTitles.length
+      });
 
       const response = await axios.post('https://inference.do-ai.run/v1/chat/completions', requestPayload, {
         headers: {
@@ -76,9 +80,8 @@ Generate a title that reflects the user's instructions and the provided data.`;
         }
       });
       
-      logger.info('Received response from AI service.', { responseData: response.data });
-      
       const title = response.data.choices[0].message.content.trim();
+      logger.info('Received response from AI service.', { titlePreview: title.slice(0, 60), titleLength: title.length });
       return title;
 
     } catch (error) {
