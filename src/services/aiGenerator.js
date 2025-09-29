@@ -28,7 +28,7 @@ const aiGenerator = {
 
       const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
 
-You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks.
+You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks (unless the user explicitly requests them).
 
 Here is an example of the activity data you will receive:
 {
@@ -54,7 +54,7 @@ Generate a title that reflects the user's instructions and the provided data.`;
         ? `\n\nRecent Titles (avoid generating anything similar to these):\n${cleanedRecentTitles.map(t => `- ${t}`).join('\n')}`
         : '';
 
-      const constraintsSection = `\n\nConstraints:\n- Do NOT produce a title that is the same as or clearly resembles any recent title above.\n- Vary word choice, style, and structure. Use a fresh angle.\n- Output a single concise title without quotation marks.`;
+      const constraintsSection = `\n\nConstraints:\n- Do NOT produce a title that is the same as or clearly resembles any recent title above.\n- Vary word choice, style, and structure. Use a fresh angle.\n- Output a single concise title without quotation marks (unless the user explicitly requests them).`;
 
       const finalPrompt = `User's instruction: "${effectiveUserPrompt}"\n\nActivity Data:\n${JSON.stringify(activityData, null, 2)}${recentTitlesSection}${constraintsSection}`;
 
