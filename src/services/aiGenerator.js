@@ -6,9 +6,11 @@ const aiGenerator = {
    * Generates a new activity title by calling an OpenAI-compatible API.
    * @param {string} userPrompt - The user's custom prompt for title generation.
    * @param {object} activity - The detailed Strava activity object.
+   * @param {string[]} [recentTitles] - Optional list of the user's recent generated titles
+   *  used to reduce repetition. Not yet used in prompt composition at this stage.
    * @returns {Promise<string>} A promise that resolves to the newly generated title.
    */
-  generateTitle: async (userPrompt, activity) => {
+  generateTitle: async (userPrompt, activity, recentTitles = []) => {
     try {
       // Use a default prompt if the user has not provided one.
       const effectiveUserPrompt = userPrompt || 'Make it sound epic and fun!';
@@ -40,7 +42,21 @@ Here is an example of the activity data you will receive:
 
 Generate a title that reflects the user's instructions and the provided data.`;
       
-      const finalPrompt = `User's instruction: "${effectiveUserPrompt}"\n\nActivity Data:\n${JSON.stringify(activityData, null, 2)}`;
+      const cleanedRecentTitles = Array.isArray(recentTitles)
+        ? recentTitles
+            .filter(Boolean)
+            .map(t => t.toString().trim())
+            .filter(t => t.length > 0)
+            .slice(0, 20)
+        : [];
+
+      const recentTitlesSection = cleanedRecentTitles.length > 0
+        ? `\n\nRecent Titles (avoid generating anything similar to these):\n${cleanedRecentTitles.map(t => `- ${t}`).join('\n')}`
+        : '';
+
+      const constraintsSection = `\n\nConstraints:\n- Do NOT produce a title that is the same as or clearly resembles any recent title above.\n- Vary word choice, style, and structure. Use a fresh angle.\n- Output a single concise title without quotation marks.`;
+
+      const finalPrompt = `User's instruction: "${effectiveUserPrompt}"\n\nActivity Data:\n${JSON.stringify(activityData, null, 2)}${recentTitlesSection}${constraintsSection}`;
 
       const requestPayload = {
         model: process.env.AI_MODEL_NAME || 'openai-o3',
