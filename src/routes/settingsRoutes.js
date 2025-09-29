@@ -33,7 +33,7 @@ const settingsController = {
             role: 'system', 
             content: `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
 
-You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase.
+You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks.
 
 Here is an example of the activity data you will receive:
 {
