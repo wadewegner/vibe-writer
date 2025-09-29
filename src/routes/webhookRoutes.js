@@ -60,8 +60,9 @@ const webhookController = {
         // Fetch activity details from Strava
         const activityDetails = await stravaApi.getActivityById(user.access_token, object_id, userId);
 
-        // Generate a new title using the AI service
-        const generatedTitle = await aiGenerator.generateTitle(user.prompt, activityDetails);
+        // Fetch last 20 generated titles for exclusion and generate a new title
+        const recentTitles = await db.getRecentGeneratedTitles(userId, 20);
+        const generatedTitle = await aiGenerator.generateTitle(user.prompt, activityDetails, recentTitles);
         logger.info(`Generated title for activity ${object_id}: "${generatedTitle}"`, context);
 
         // 6. Update the activity on Strava with the new title

@@ -45,8 +45,9 @@ router.post('/:id/regenerate-title', async (req, res) => {
     }
     const user = userResult.rows[0];
     
-    // Pass the entire activity record to the generator
-    const newTitle = await aiGenerator.generateTitle(user.prompt, activity);
+    // Fetch recent titles and pass to the generator to reduce repetition
+    const recentTitles = await db.getRecentGeneratedTitles(userId, 20);
+    const newTitle = await aiGenerator.generateTitle(user.prompt, activity, recentTitles);
 
     res.json({ newTitle });
   } catch (error) {
