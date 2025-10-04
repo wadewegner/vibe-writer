@@ -4,6 +4,7 @@ const db = require('../services/db');
 const stravaApi = require('../services/stravaApi');
 const aiGenerator = require('../services/aiGenerator');
 const logger = require('../services/logger');
+const { getAllActivityTypes } = require('../services/constants');
 
 const webhookController = {
   // Strava Webhook Subscription Validation
@@ -59,10 +60,20 @@ const webhookController = {
 
         // Fetch activity details from Strava
         const activityDetails = await stravaApi.getActivityById(user.access_token, object_id, userId);
+        
+        // Get user preferences with fallback defaults
+        const isImperial = user.is_imperial !== null && user.is_imperial !== undefined ? user.is_imperial : true;
+        const activityTypes = user.activity_types || getAllActivityTypes();
+        
+        // Check if this activity type is enabled for title generation
+        if (!activityTypes.includes(activityDetails.type)) {
+          logger.info(`Activity type "${activityDetails.type}" not enabled for user ${userId}. Skipping title generation.`, context);
+          return;
+        }
 
         // Fetch last 20 generated titles for exclusion and generate a new title
         const recentTitles = await db.getRecentGeneratedTitles(userId, 20);
-        const generatedTitle = await aiGenerator.generateTitle(user.prompt, activityDetails, recentTitles);
+        const generatedTitle = await aiGenerator.generateTitle(user.prompt, activityDetails, recentTitles, isImperial);
         logger.info(`Generated title for activity ${object_id}: "${generatedTitle}"`, context);
 
         // 6. Update the activity on Strava with the new title

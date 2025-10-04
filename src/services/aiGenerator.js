@@ -8,22 +8,42 @@ const aiGenerator = {
    * @param {object} activity - The detailed Strava activity object.
    * @param {string[]} [recentTitles] - Optional list of the user's recent generated titles
    *  used to reduce repetition. Not yet used in prompt composition at this stage.
+   * @param {boolean} [isImperial=true] - Whether to use imperial units (true) or metric (false).
    * @returns {Promise<string>} A promise that resolves to the newly generated title.
    */
-  generateTitle: async (userPrompt, activity, recentTitles = []) => {
+  generateTitle: async (userPrompt, activity, recentTitles = [], isImperial = true) => {
     try {
       // Use a default prompt if the user has not provided one.
       const effectiveUserPrompt = userPrompt || 'Make it sound epic and fun!';
       
       const rawActivity = activity.activity_data || activity;
 
+      // Build activityData based on unit preference
       const activityData = {
         type: rawActivity.type,
-        distance_km: (rawActivity.distance / 1000).toFixed(2),
-        distance_miles: (rawActivity.distance * 0.000621371).toFixed(2),
-        moving_time_minutes: Math.round(rawActivity.moving_time / 60),
-        elevation_gain_meters: Math.round(rawActivity.total_elevation_gain),
-        elevation_gain_feet: Math.round(rawActivity.total_elevation_gain * 3.28084),
+        moving_time_minutes: Math.round(rawActivity.moving_time / 60)
+      };
+
+      // Add distance and elevation based on unit preference
+      if (isImperial) {
+        activityData.distance_miles = (rawActivity.distance * 0.000621371).toFixed(2);
+        activityData.elevation_gain_feet = Math.round(rawActivity.total_elevation_gain * 3.28084);
+      } else {
+        activityData.distance_km = (rawActivity.distance / 1000).toFixed(2);
+        activityData.elevation_gain_meters = Math.round(rawActivity.total_elevation_gain);
+      }
+
+      // Build dynamic example based on unit preference
+      const exampleData = isImperial ? {
+        type: "Ride",
+        distance_miles: 6.5,
+        moving_time_minutes: 30,
+        elevation_gain_feet: 492
+      } : {
+        type: "Ride",
+        distance_km: 10.5,
+        moving_time_minutes: 30,
+        elevation_gain_meters: 150
       };
 
       const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
@@ -31,14 +51,7 @@ const aiGenerator = {
 You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks (unless the user explicitly requests them).
 
 Here is an example of the activity data you will receive:
-{
-  "type": "Ride",
-  "distance_km": 10.5,
-  "distance_miles": 6.5,
-  "moving_time_minutes": 30,
-  "elevation_gain_meters": 150,
-  "elevation_gain_feet": 492
-}
+${JSON.stringify(exampleData, null, 2)}
 
 Generate a title that reflects the user's instructions and the provided data.`;
       

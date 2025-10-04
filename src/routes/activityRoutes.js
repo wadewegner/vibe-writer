@@ -38,16 +38,19 @@ router.post('/:id/regenerate-title', async (req, res) => {
 
     const activity = activityResult.rows[0];
 
-    const userResult = await db.query('SELECT prompt FROM users WHERE id = $1', [userId]);
+    const userResult = await db.query('SELECT prompt, is_imperial FROM users WHERE id = $1', [userId]);
     if (userResult.rows.length === 0) {
       // This case should be rare if the user is authenticated and the activity exists
       return res.status(404).json({ message: 'User not found.' });
     }
     const user = userResult.rows[0];
     
+    // Get user's unit preference with fallback default
+    const isImperial = user.is_imperial !== null && user.is_imperial !== undefined ? user.is_imperial : true;
+    
     // Fetch recent titles and pass to the generator to reduce repetition
     const recentTitles = await db.getRecentGeneratedTitles(userId, 20);
-    const newTitle = await aiGenerator.generateTitle(user.prompt, activity, recentTitles);
+    const newTitle = await aiGenerator.generateTitle(user.prompt, activity, recentTitles, isImperial);
 
     res.json({ newTitle });
   } catch (error) {
