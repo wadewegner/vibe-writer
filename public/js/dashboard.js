@@ -52,8 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.regenerate-btn').forEach(button => {
     button.addEventListener('click', (event) => {
       const activityId = event.currentTarget.dataset.activityId;
-      // In the new layout, the original title is in a sibling td
-      const originalTitle = event.currentTarget.closest('tr').querySelector('td:nth-child(3)').textContent;
+      
+      // Get original title from either table (desktop) or card (mobile)
+      let originalTitle;
+      const tableRow = event.currentTarget.closest('tr');
+      const card = event.currentTarget.closest('.activity-card');
+      
+      if (tableRow) {
+        // Desktop: get from table column
+        originalTitle = tableRow.querySelector('td:nth-child(3)').textContent;
+      } else if (card) {
+        // Mobile: get from card expanded section
+        const originalTitleDetail = card.querySelector('.activity-card-detail-value');
+        originalTitle = originalTitleDetail ? originalTitleDetail.textContent : 'Unknown';
+      }
 
       // Store data on the modal for other handlers to use
       modalEl.dataset.activityId = activityId;
