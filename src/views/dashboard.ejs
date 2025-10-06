@@ -15,6 +15,49 @@
   <h1 class="dashboard-title">Dashboard</h1>
 
   <h2 class="activities-title">Generated Titles</h2>
+  
+  <!-- Activity Cards (Mobile) -->
+  <div class="activities-cards-container">
+    <% if (locals.activities && activities.length > 0) { %>
+      <% activities.forEach(activity => { %>
+        <div class="activity-card" data-activity-id="<%= activity.id %>" data-expanded="false">
+          <div class="activity-card-header">
+            <div class="activity-card-date">
+              <%= new Date(activity.processed_at).toLocaleDateString() %>
+            </div>
+            <div class="activity-card-title-row">
+              <div class="activity-card-title" id="activity-card-title-<%= activity.id %>">
+                <%= activity.generated_title %>
+              </div>
+              <button class="activity-card-regenerate btn regenerate-btn" data-activity-id="<%= activity.id %>" title="Regenerate Title" aria-label="Regenerate Title">
+                &#x21bb;
+              </button>
+            </div>
+          </div>
+          <div class="activity-card-body">
+            <div class="activity-card-body-content">
+              <div class="activity-card-detail">
+                <div class="activity-card-detail-label">Original Title</div>
+                <div class="activity-card-detail-value"><%= activity.original_title %></div>
+              </div>
+              <div class="activity-card-detail">
+                <div class="activity-card-detail-label">Activity</div>
+                <div class="activity-card-detail-value">
+                  <a href="https://www.strava.com/activities/<%= activity.activity_id %>" target="_blank">View on Strava</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="activity-cards-empty">
+        No activities processed yet. New activities will appear here automatically.
+      </div>
+    <% } %>
+  </div>
+  
+  <!-- Activity Table (Desktop) -->
   <div class="activities-table-container">
     <table class="activities-table">
       <thead>

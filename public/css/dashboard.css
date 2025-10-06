@@ -465,6 +465,150 @@ body {
 }
 
 /* ============================================
+   ACTIVITY CARDS (MOBILE)
+   ============================================ */
+
+.activities-cards-container {
+  display: none; /* Hidden by default, shown on mobile */
+}
+
+.activity-card {
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.activity-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.activity-card.expanded {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.activity-card-header {
+  padding: 1rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.activity-card-date {
+  font-size: 0.875rem;
+  color: var(--text-light-color);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.activity-card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.activity-card-title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.activity-card-regenerate {
+  flex-shrink: 0;
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: background-color 0.2s, transform 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.activity-card-regenerate:hover {
+  background-color: #2563eb;
+}
+
+.activity-card-regenerate:active {
+  transform: scale(0.95);
+}
+
+.activity-card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: var(--background-color);
+}
+
+.activity-card.expanded .activity-card-body {
+  max-height: 500px; /* Large enough for content */
+  transition: max-height 0.3s ease-in;
+}
+
+.activity-card-body-content {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.activity-card-detail {
+  margin-bottom: 0.875rem;
+}
+
+.activity-card-detail:last-child {
+  margin-bottom: 0;
+}
+
+.activity-card-detail-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light-color);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.activity-card-detail-value {
+  font-size: 0.9375rem;
+  color: var(--text-color);
+}
+
+.activity-card-detail-value a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0;
+}
+
+.activity-card-detail-value a:hover {
+  text-decoration: underline;
+}
+
+.activity-cards-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-light-color);
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
    HAMBURGER MENU & MOBILE NAVIGATION
    ============================================ */
 
@@ -631,6 +775,27 @@ body {
   
   .header-right {
     flex-shrink: 0;
+  }
+  
+  /* Show activity cards on mobile, hide table */
+  .activities-cards-container {
+    display: block;
+  }
+  
+  .activities-table-container {
+    display: none;
+  }
+  
+  /* Adjust titles for mobile */
+  .dashboard-title {
+    font-size: 1.75rem;
+    margin: 1.5rem 0;
+  }
+  
+  .activities-title {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
   }
 }
 

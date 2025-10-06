@@ -97,11 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error(errorData.message || 'Failed to update title');
       }
 
-      // Update the title in the UI
+      // Update the title in the table (desktop)
       const titleSpan = document.getElementById(`activity-title-${activityId}`);
       if (titleSpan) {
         titleSpan.textContent = newTitle;
       }
+      
+      // Update the title in the card (mobile)
+      const cardTitle = document.getElementById(`activity-card-title-${activityId}`);
+      if (cardTitle) {
+        cardTitle.textContent = newTitle;
+      }
+      
       hideModal();
 
     } catch (error) {
@@ -182,4 +189,43 @@ document.addEventListener('DOMContentLoaded', () => {
       closeMobileNav();
     }
   });
+
+  // ============================================
+  // ACTIVITY CARD EXPAND/COLLAPSE
+  // ============================================
+  
+  const activityCards = document.querySelectorAll('.activity-card');
+  
+  activityCards.forEach(card => {
+    const cardHeader = card.querySelector('.activity-card-header');
+    const regenerateBtn = card.querySelector('.activity-card-regenerate');
+    
+    /**
+     * Toggles the expanded state of an activity card
+     */
+    const toggleCard = () => {
+      const isExpanded = card.dataset.expanded === 'true';
+      card.dataset.expanded = !isExpanded;
+      card.classList.toggle('expanded');
+    };
+    
+    // Toggle card when clicking on the header (but not the regenerate button)
+    if (cardHeader) {
+      cardHeader.addEventListener('click', (event) => {
+        // Don't toggle if clicking the regenerate button
+        if (!event.target.closest('.activity-card-regenerate')) {
+          toggleCard();
+        }
+      });
+    }
+    
+    // Prevent regenerate button click from expanding card
+    if (regenerateBtn) {
+      regenerateBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        // The regenerate functionality is already handled by existing code
+      });
+    }
+  });
+
 }); 
