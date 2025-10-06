@@ -4,10 +4,16 @@
       <div class="header-left">
         <a href="/dashboard" class="header-brand-container">
           <img src="/img/vibewriter-logo.png" alt="VibeWriter Logo" class="header-logo">
-          <span class="header-brand"><strong>Vibe Writer</strong>: Stop Writing Boring Strava Titles</span>
+          <span class="header-brand"><strong>Vibe Writer</strong></span>
         </a>
       </div>
       <div class="header-right">
+        <!-- Hamburger Menu Icon (Mobile Only) -->
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-icon">☰</span>
+        </button>
+        
+        <!-- Desktop Navigation -->
         <nav class="header-nav">
           <% if (locals.currentPage === 'dashboard') { %>
             <span class="nav-link active">Dashboard</span>
@@ -26,4 +32,26 @@
       </div>
     </div>
   </div>
-</header> 
+</header>
+
+<!-- Mobile Navigation Overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav-overlay" aria-hidden="true">
+  <div class="mobile-nav-content">
+    <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close navigation menu">
+      <span class="close-icon">×</span>
+    </button>
+    <nav class="mobile-nav">
+      <% if (locals.currentPage === 'dashboard') { %>
+        <span class="mobile-nav-link active">Dashboard</span>
+      <% } else { %>
+        <a href="/dashboard" class="mobile-nav-link">Dashboard</a>
+      <% } %>
+      <% if (locals.currentPage === 'settings') { %>
+        <span class="mobile-nav-link active">Settings</span>
+      <% } else { %>
+        <a href="/settings" class="mobile-nav-link">Settings</a>
+      <% } %>
+      <a href="/auth/logout" class="mobile-nav-link">Log Out</a>
+    </nav>
+  </div>
+</div> 
