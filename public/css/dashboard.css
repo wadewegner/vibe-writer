@@ -797,6 +797,45 @@ body {
     margin-top: 2rem;
     margin-bottom: 1rem;
   }
+  
+  /* Bottom Sheet Modal on Mobile */
+  .modal-overlay {
+    align-items: flex-end;
+  }
+  
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-overlay.show .modal-content {
+    transform: translateY(0);
+  }
+  
+  /* Adjust modal buttons for mobile */
+  .modal-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+  
+  .modal-close-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 /* Tablet Styles (768px and above) */
