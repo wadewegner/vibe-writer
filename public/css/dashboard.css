@@ -836,6 +836,48 @@ body {
     align-items: center;
     justify-content: center;
   }
+  
+  /* Improve form touch targets on mobile */
+  .radio-label {
+    padding: 1rem 0.75rem;
+    min-height: 48px;
+  }
+  
+  .checkbox-label {
+    padding: 0.75rem 0.5rem;
+    min-height: 44px;
+  }
+  
+  .btn-sm {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+  }
+  
+  .prompt-textarea {
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+    padding: 1rem;
+  }
+  
+  /* Ensure form buttons have adequate touch targets */
+  .form-actions .btn {
+    min-height: 48px;
+    width: 100%;
+  }
+  
+  /* Improve spacing on mobile */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .activity-type-controls {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Improve card layout on mobile */
+  .prompt-card {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Tablet Styles (768px and above) */
