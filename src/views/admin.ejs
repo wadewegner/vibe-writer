@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal - Vibe Writer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<%- include('partials/dashboard-header') %>
+
+<main class="dashboard-container">
+  <h1 class="dashboard-title">Admin Portal</h1>
+
+  <h2 class="activities-title">System Metrics</h2>
+  
+  <!-- Metrics Grid Container -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+    
+    <!-- Total Users Card -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <h3 style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: var(--text-light-color); margin: 0;">Total Users</h3>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 2.5rem; font-weight: bold; margin: 0; color: var(--primary-color);"><%= totalUsers %></p>
+      </div>
+    </div>
+
+    <!-- Daily Titles Generated Card -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <h3 style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: var(--text-light-color); margin: 0;">Daily Titles Generated</h3>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 2.5rem; font-weight: bold; margin: 0; color: var(--primary-color);"><%= dailyTitles %></p>
+        <p style="font-size: 0.8rem; color: var(--text-light-color); margin: 0.5rem 0 0 0;">Today</p>
+      </div>
+    </div>
+
+    <!-- Total Titles Generated Card -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <h3 style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: var(--text-light-color); margin: 0;">Total Titles Generated</h3>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 2.5rem; font-weight: bold; margin: 0; color: var(--primary-color);"><%= totalTitles %></p>
+        <p style="font-size: 0.8rem; color: var(--text-light-color); margin: 0.5rem 0 0 0;">All Time</p>
+      </div>
+    </div>
+
+    <!-- Daily New Users Card -->
+    <div class="prompt-card">
+      <div class="card-header">
+        <h3 style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: var(--text-light-color); margin: 0;">Daily New Users</h3>
+      </div>
+      <div class="card-body">
+        <p style="font-size: 2.5rem; font-weight: bold; margin: 0; color: var(--primary-color);"><%= dailyNewUsers %></p>
+        <p style="font-size: 0.8rem; color: var(--text-light-color); margin: 0.5rem 0 0 0;">Today</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="activities-title">User List</h2>
+  <p style="color: var(--text-light-color); margin-bottom: 1rem;">Users sorted by most active (total activities processed)</p>
+  
+  <!-- User Table Container -->
+  <div class="activities-table-container">
+    <table class="activities-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Strava ID</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>Prompt</th>
+          <th>Units</th>
+          <th>Activity Types</th>
+          <th>Activities</th>
+          <th>Last Activity</th>
+          <th>Admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (locals.users && users.length > 0) { %>
+          <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.strava_id %></td>
+              <td><%= user.created_at_formatted %></td>
+              <td><%= user.updated_at_formatted %></td>
+              <td><%= user.prompt_display %></td>
+              <td><%= user.unit_preference %></td>
+              <td><%= user.activity_types_display %></td>
+              <td><%= user.activity_count || 0 %></td>
+              <td><%= user.last_activity_date_formatted || 'None' %></td>
+              <td><%= user.admin_status %></td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="10" class="table-empty-message">No users found.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<script src="/js/navigation.js"></script>
+</body>
+</html>
+
