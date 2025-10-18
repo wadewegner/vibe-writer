@@ -48,7 +48,7 @@ const aiGenerator = {
 
       const systemPrompt = `You are a creative assistant for the fitness app Strava. Your task is to generate a short, engaging title for a user's activity.
 
-You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks (unless the user explicitly requests them).
+You will receive user instructions and a JSON object with the activity's data. Use both to craft a title. The title should be a single, compelling phrase and must not be enclosed in quotation marks (unless the user explicitly requests them). Do not include distance, time, or elevation data unless expressly requested by the user.
 
 Here is an example of the activity data you will receive:
 ${JSON.stringify(exampleData, null, 2)}
