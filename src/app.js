@@ -12,6 +12,7 @@ const activityRoutes = require('./routes/activityRoutes');
 const supportRoutes = require('./routes/supportRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const changelogRoutes = require('./routes/changelogRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -55,6 +56,7 @@ app.use('/api/activities', activityRoutes);
 app.use('/support', supportRoutes);
 app.use('/settings', isAuthenticated, settingsRoutes);
 app.use('/changelog', changelogRoutes);
+app.use('/admin', isAuthenticated, adminRoutes);
 
 app.get('/', (req, res) => {
   res.render('login');

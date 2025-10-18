@@ -25,6 +25,13 @@
           <% } else { %>
             <a href="/settings" class="nav-link">Settings</a>
           <% } %>
+          <% if (locals.user && user.is_admin) { %>
+            <% if (locals.currentPage === 'admin') { %>
+              <span class="nav-link active">Admin</span>
+            <% } else { %>
+              <a href="/admin" class="nav-link">Admin</a>
+            <% } %>
+          <% } %>
         </nav>
         <div class="header-logout">
           <a href="/auth/logout" class="nav-link">Log Out</a>
@@ -50,6 +57,13 @@
         <span class="mobile-nav-link active">Settings</span>
       <% } else { %>
         <a href="/settings" class="mobile-nav-link">Settings</a>
+      <% } %>
+      <% if (locals.user && user.is_admin) { %>
+        <% if (locals.currentPage === 'admin') { %>
+          <span class="mobile-nav-link active">Admin</span>
+        <% } else { %>
+          <a href="/admin" class="mobile-nav-link">Admin</a>
+        <% } %>
       <% } %>
       <a href="/auth/logout" class="mobile-nav-link">Log Out</a>
     </nav>
