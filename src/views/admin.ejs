@@ -89,7 +89,7 @@
           <% users.forEach(user => { %>
             <tr>
               <td><%= user.id %></td>
-              <td><%= user.strava_id %></td>
+              <td><a href="https://www.strava.com/athletes/<%= user.strava_id %>" target="_blank" rel="noopener noreferrer"><%= user.strava_id %></a></td>
               <td><%= user.created_at_formatted %></td>
               <td><%= user.updated_at_formatted %></td>
               <td><%= user.prompt_display %></td>
